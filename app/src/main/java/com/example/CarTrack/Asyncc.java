@@ -19,8 +19,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
@@ -42,26 +40,28 @@ public class Asyncc extends AsyncTask<String, String, String> {
     int currentprogress=0;
     Bitmap image;
     Uri tempuri;
+    String firebase_storage_picture;
+
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
+
+
+    public String getFirebase_storage_picture() {
+        return firebase_storage_picture;
+    }
+
 
 
 
     public Asyncc(Context ctx, Uri dataBaos,ProgressBar progressBar) {
         this.ctx=ctx;
-
-
-
         uploadfunc= new Click();
+        pref = ctx.getSharedPreferences("MyPref", 0); // 0 - for private mode
+        editor = pref.edit();
 
         this.progressBar=progressBar;
         progressBar.setMax(100);
-
-        //   dialog = new ProgressDialog(activity);
-        //   dialog.setIndeterminate(false);
-        // Progress dialog horizontal style
-        //  dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        //    this.imagearray=dataBaos;
-        // this.image=dataBaos;
-
         this.tempuri=dataBaos;
     }
 
@@ -70,42 +70,22 @@ public class Asyncc extends AsyncTask<String, String, String> {
     protected String doInBackground(String... voids) {
 
 
-        FirebaseStorage storage;
-        StorageReference storageRef;
-        storage = FirebaseStorage.getInstance();
 
+        String upload_url=upload_in_background_storage();
+        return upload_url;
+    }
+
+
+    private String upload_in_background_storage() {
+
+
+        FirebaseStorage storage;
+        final StorageReference storageRef;
+        storage = FirebaseStorage.getInstance();
 
         storageRef = storage.getReference().child("" + new Date().getTime());
 
-        UploadTask uploadTask = storageRef.putFile(tempuri);
-
-
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle unsuccessful uploads
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-//
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                // ...
-//                Toast.makeText(uploadfunc, "Please Connect To The Internet", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//            }
-//        });
-
-
-
-
+        final UploadTask uploadTask = storageRef.putFile(tempuri);
 
         uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -127,10 +107,24 @@ public class Asyncc extends AsyncTask<String, String, String> {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(ctx, "Please Connect To Internet", Toast.LENGTH_SHORT).show();
             }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.d("storage url", "onSuccess: uri= "+ uri.toString());
+                        firebase_storage_picture=uri+"";
+                        editor.putString("last_upload_url", uri+"");
+                        editor.commit(); // commit changes
+
+                    }
+                });
+            }
         });
 
-        //  uploadfunc.uploadphoto(tempuri);
-        return null;
+        return firebase_storage_picture+"";
+
     }
 
 
@@ -139,9 +133,6 @@ public class Asyncc extends AsyncTask<String, String, String> {
         super.onPreExecute();
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
-
-//        dialog.setMessage("Upoading... please wait.");
-//        dialog.show();
     }
 
 
@@ -149,10 +140,11 @@ public class Asyncc extends AsyncTask<String, String, String> {
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
 
-
         progressBar.setVisibility(View.GONE);
 
-        //   Utils.showToast(ctx,"Upload successful");
+        firebase_storage_picture=aVoid;
+
+
 
 
     }
@@ -162,7 +154,7 @@ public class Asyncc extends AsyncTask<String, String, String> {
     protected void onProgressUpdate(String... values) {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setProgress(Integer.parseInt(values[0]));
-        Log.d("progg",values[0]+"");
+       // Log.d("progg",values[0]+"");
         if(Integer.parseInt(values[0])==100)
         {
             progressBar.setVisibility(View.GONE);

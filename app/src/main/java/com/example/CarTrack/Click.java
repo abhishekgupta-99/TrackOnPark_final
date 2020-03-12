@@ -58,6 +58,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -113,6 +114,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     String text;
     float confidence;
+
+    String picture_url;
 
 
 
@@ -195,7 +198,14 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
             //  mProgress.setMessage("Uploading your Status...");
             evaluate_model(photoURI);
             progress = new Asyncc(this, photoURI, progressBar);
-            progress.execute();
+
+                 progress.execute();
+                // picture_url=progress.getFirebase_storage_picture();
+
+
+
+          //  Uri picture_url=progress.getFirebase_storage_picture();
+           // Log.d("Picture urlll",picture_url+"");
             bt1.setClickable(false);
             bt1.setBackgroundColor(getResources().getColor(R.color.grey_100));
 
@@ -204,21 +214,12 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-            //   progressBar.setVisibility(View.GONE);
-
-            //   uploadphoto();
         }
 
 
         if (view == i1) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (intent.resolveActivity(getPackageManager()) != null) {
-                // Create the File where the photo should go
-                // Bundle extras = new Bundle();
-
-
-                //Comment this portion for thumbnail upload
 
                 File photoFile = null;
                 try {
@@ -442,6 +443,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     private void update_firestore(String address, double latitude, double longitude) {
         pref = getApplicationContext().getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
+        String last_upload_url=pref.getString("last_upload_url", null);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
@@ -453,6 +455,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         car_details.put("latitude",latitude);
         car_details.put("longitude", longitude);
         car_details.put("Addresss",address);
+        car_details.put("Image_Url",last_upload_url);
         car_details.put("label",text);
 
 

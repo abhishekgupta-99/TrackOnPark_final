@@ -22,6 +22,7 @@ public class EntriesFragment extends Fragment {
 
 
         Button button3 = (Button) view.findViewById(R.id.upload);
+        Button retrieve= view.findViewById(R.id.RETREIVE);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +32,15 @@ public class EntriesFragment extends Fragment {
             }
         });
 
+        retrieve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), retrieve_data.class);
+                //intent.putExtra("some", "some data");
+                startActivity(intent);
+
+            }
+        });
         return view;
 
     }
