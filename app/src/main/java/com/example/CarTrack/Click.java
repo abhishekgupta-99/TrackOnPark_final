@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -58,7 +59,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,9 +66,9 @@ import static com.vincent.filepicker.activity.ImagePickActivity.IS_NEED_CAMERA;
 
 public class Click extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView i1;
-    CircleImageView i2;
-    Button bt1;
+    ImageView camera_click_picture;
+    CircleImageView file_attach;
+    Button upload_btn;
     EditText et1, et2;
     Spinner sp;
     Uri photoURI;
@@ -105,7 +105,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     FirebaseAutoMLRemoteModel remoteModel;
     FirebaseAutoMLLocalModel localModel;
     FirebaseVisionImageLabeler labeler;
-    FirebaseVisionImage image_model;
+   // FirebaseVisionImage image_model;
 
 
     SharedPreferences pref;
@@ -123,7 +123,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_click);
-        gps = new GPSTracker(getApplicationContext());
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -133,9 +133,9 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         }
 
 
-        i1 = findViewById(R.id.imageView1_markzone);
-        i2 = findViewById(R.id.image);
-        bt1 = findViewById(R.id.button_markzone);
+        camera_click_picture = findViewById(R.id.camera_click);
+        file_attach = findViewById(R.id.image);
+        upload_btn = findViewById(R.id.upload_button);
         progressBar = findViewById(R.id.progressBar);
 
 
@@ -143,12 +143,12 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         // mProgress = new ProgressDialog(this);
         //  mProgress=(ProgressBar)findViewById(R.id.progressBar);
 
-        bt1.setOnClickListener(this);
-        bt1.setClickable(false);
-        bt1.setBackgroundColor(getResources().getColor(R.color.grey_100));
-        i1.setOnClickListener(this);
+        upload_btn.setOnClickListener(this);
+        upload_btn.setClickable(false);
+        upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
+        camera_click_picture.setOnClickListener(this);
 
-        remoteModel = new FirebaseAutoMLRemoteModel.Builder("Cars_Label").build();
+        remoteModel = new FirebaseAutoMLRemoteModel.Builder("car_label").build();
 
 
         localModel = new FirebaseAutoMLLocalModel.Builder()
@@ -176,7 +176,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                                 .build();
 
                         try {
-                            labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(options);
+                             labeler = FirebaseVision.getInstance().getOnDeviceAutoMLImageLabeler(options);
                         } catch (FirebaseMLException e) {
                             // Error.
                         }
@@ -188,36 +188,26 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View view) {
 
 
-        if (view == bt1) {
-//            final String ZoneData = et1.getText().toString().trim();
-            //          final String ZoneSolution = et2.getText().toString().trim();
-            //        final String ZoneImage = zoneImageURI;
+        if (view == upload_btn) {
 
+            //evaluate_model();
+            execute_asyncc();
 
-//
-            //  mProgress.setMessage("Uploading your Status...");
-            evaluate_model(photoURI);
-            progress = new Asyncc(this, photoURI, progressBar);
+            // picture_url=progress.getFirebase_storage_picture();
 
-                 progress.execute();
-                // picture_url=progress.getFirebase_storage_picture();
 
 
 
           //  Uri picture_url=progress.getFirebase_storage_picture();
            // Log.d("Picture urlll",picture_url+"");
-            bt1.setClickable(false);
-            bt1.setBackgroundColor(getResources().getColor(R.color.grey_100));
+            upload_btn.setClickable(false);
+            upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
 
-            try {
-                get_LatLong();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
         }
 
 
-        if (view == i1) {
+        if (view == camera_click_picture) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (intent.resolveActivity(getPackageManager()) != null) {
 
@@ -232,6 +222,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                     photoURI = FileProvider.getUriForFile(this,
                             BuildConfig.APPLICATION_ID + ".provider",
                             photoFile);
+
+                    Toast.makeText(this, photoURI+"", Toast.LENGTH_SHORT).show();
 
                     mPhotoFile = photoFile;
                     intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
@@ -248,12 +240,25 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void evaluate_model(Uri photoURI) {
+    public void execute_asyncc() {
+
+        progress = new Asyncc(this, photoURI, progressBar,labeler);
+        progress.execute();
+
+    }
+
+    public void evaluate_model(Uri photoURI, final Context ctx,FirebaseVisionImageLabeler labeler) {
+       final SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
+        final SharedPreferences.Editor sp_editor=pref.edit();
+
+        FirebaseVisionImage image_model = null;
         try {
-            image_model = FirebaseVisionImage.fromFilePath(Click.this, photoURI);
+            image_model = FirebaseVisionImage.fromFilePath(ctx, photoURI);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //   Toast.makeText(this, image_model+"", Toast.LENGTH_SHORT).show();
 
 
         labeler.processImage(image_model)
@@ -263,10 +268,18 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                         // Task completed successfully
 
                         for (FirebaseVisionImageLabel label: labels) {
-                             text = label.getText();
+                             String text_label = label.getText();
                             Log.d("ML_OUTPUT", text);
-                            Toast.makeText(Click.this, text, Toast.LENGTH_SHORT).show();
-                             confidence = label.getConfidence();
+                           String label_confidence = label.getConfidence()+"";
+                          //  Toast.makeText(this, "qfwe", Toast.LENGTH_SHORT).show();
+
+                            Toast.makeText(ctx, "The car is "+text_label+" , with a confidence of "+label_confidence, Toast.LENGTH_LONG).show();
+
+
+                            sp_editor.putString("confidence",label_confidence+"");
+                            sp_editor.putString("label",text_label);
+                            sp_editor.commit();
+
                         }
                         // ...
                     }
@@ -337,13 +350,13 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
             rresultCode = resultCode;
 
-            i2.setImageURI(photoURI);
+            file_attach.setImageURI(photoURI);
 
 
-            // i2.setImageBitmap(imageBitmap);
+            // file_attach.setImageBitmap(imageBitmap);
 
-            bt1.setClickable(true);
-            bt1.setBackgroundColor(getResources().getColor(R.color.blue400));
+            upload_btn.setClickable(true);
+            upload_btn.setBackgroundColor(getResources().getColor(R.color.blue400));
 
             super.onActivityResult(requestCode, resultCode, data);
 
@@ -354,7 +367,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         {
             if (resultCode == RESULT_OK) {
                 ArrayList<ImageFile> list = data.getParcelableArrayListExtra(Constant.RESULT_PICK_IMAGE);
-                Log.d("LISTTTT",list.get(0).toString());
+               // Log.d("LISTTTT",list.get(0).toString());
 
                 // Uri path = Uri.fromFile(list.get(0));
 
@@ -362,11 +375,11 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                 Log.d(  "pathhh",list.get(0).getPath());
                 photoURI= Uri.fromFile(new File(list.get(0).getPath()));
 
-                i2.setImageURI(Uri.fromFile(new File(list.get(0).getPath())));
-                bt1.setClickable(true);
-                bt1.setBackgroundColor(getResources().getColor(R.color.blue400));
+                file_attach.setImageURI(Uri.fromFile(new File(list.get(0).getPath())));
+                upload_btn.setClickable(true);
+                upload_btn.setBackgroundColor(getResources().getColor(R.color.blue400));
 
-                //i2.setImageDrawable(Drawable.createFromPath(list.get(0).toString()));
+                //file_attach.setImageDrawable(Drawable.createFromPath(list.get(0).toString()));
 
             }
         }
@@ -398,14 +411,16 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    void get_LatLong() throws IOException {
+   public void get_LatLong(Context ctx) throws IOException {
+
+        gps = new GPSTracker(ctx);
         if(gps.canGetLocation())
         {
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
 
-            String address=getAddress(latitude,longitude);
-            update_firestore(address,latitude,longitude);
+            String address=getAddress(ctx,latitude,longitude);
+            update_firestore(ctx,address,latitude,longitude);
 
             // \n is for new line
           //  Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -419,10 +434,10 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private String getAddress(double latitude, double longitude) throws IOException {
+    public String getAddress(Context ctx, double latitude, double longitude) throws IOException {
         Geocoder geocoder;
         List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
+        geocoder = new Geocoder(ctx, Locale.getDefault());
 
         addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
@@ -435,28 +450,31 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
         String ADDRESS = address+" , "+city+" , "+state+" , "+country+" , "+postalCode;
 
-        Toast.makeText(getApplicationContext(), city+state+postalCode+address, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, city+state+postalCode+address, Toast.LENGTH_SHORT).show();
 
         return ADDRESS;
     }
 
-    private void update_firestore(String address, double latitude, double longitude) {
-        pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+    public void update_firestore(final Context ctx, String address, double latitude, double longitude) {
+        pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
         String last_upload_url=pref.getString("last_upload_url", null);
+        String ml_label=pref.getString("label", null);
+        String ml_confidence=pref.getString("confidence", null);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
 
         Map<String, Object> car_details = new HashMap<>();
         car_details.put("TimeStamp", tsLong);
-        car_details.put("accuracy", confidence*100);
+        car_details.put("accuracy", ml_confidence);
         car_details.put("Uploader",user_email);
         car_details.put("latitude",latitude);
         car_details.put("longitude", longitude);
         car_details.put("Addresss",address);
         car_details.put("Image_Url",last_upload_url);
-        car_details.put("label",text);
+        car_details.put("label",ml_label);
 
 
 //        DocumentReference document =
@@ -469,7 +487,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Successfully car updated firestore", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, "Successfully car updated firestore", Toast.LENGTH_SHORT).show();
 
                         // get_LatLong();
 

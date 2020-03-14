@@ -6,7 +6,7 @@ public class CarDetails {
 
     private String Uploader;
     private String Addresss;
-    private Long accuracy;
+    private String accuracy;
     private Long TimeStamp;
 private double Latitude;
     private double Longitude;
@@ -37,11 +37,11 @@ private double Latitude;
         Addresss = addresss;
     }
 
-    public Long getAccuracy() {
+    public String getAccuracy() {
         return accuracy;
     }
 
-    public void setAccuracy(Long accuracy) {
+    public void setAccuracy(String accuracy) {
         this.accuracy = accuracy;
     }
 
@@ -53,7 +53,7 @@ private double Latitude;
         TimeStamp = timeStamp;
     }
 
-    public CarDetails(String uploader, String address, Long accuracy, Long timestamp,String image_path_storage) {
+    public CarDetails(String uploader, String address, String accuracy, Long timestamp,String image_path_storage) {
         this.Uploader = uploader;
         this.Addresss = address;
         this.accuracy = accuracy;

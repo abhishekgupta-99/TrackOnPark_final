@@ -19,12 +19,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +43,12 @@ public class Asyncc extends AsyncTask<String, String, String> {
     Bitmap image;
     Uri tempuri;
     String firebase_storage_picture;
+    private ProgressDialog pgdialog;
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
+
+    FirebaseVisionImageLabeler image_labeler;
 
 
 
@@ -54,15 +59,17 @@ public class Asyncc extends AsyncTask<String, String, String> {
 
 
 
-    public Asyncc(Context ctx, Uri dataBaos,ProgressBar progressBar) {
+    public Asyncc(Context ctx, Uri dataBaos, ProgressBar progressBar, FirebaseVisionImageLabeler labeler) {
         this.ctx=ctx;
         uploadfunc= new Click();
         pref = ctx.getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
+        pgdialog=new ProgressDialog(ctx);
 
         this.progressBar=progressBar;
         progressBar.setMax(100);
         this.tempuri=dataBaos;
+        this.image_labeler=labeler;
     }
 
 
@@ -71,12 +78,15 @@ public class Asyncc extends AsyncTask<String, String, String> {
 
 
 
-        String upload_url=upload_in_background_storage();
-        return upload_url;
+        upload_in_background_storage();
+
+
+        //return upload_url;
+        return null;
     }
 
 
-    private String upload_in_background_storage() {
+    private void upload_in_background_storage() {
 
 
         FirebaseStorage storage;
@@ -95,7 +105,15 @@ public class Asyncc extends AsyncTask<String, String, String> {
                 currentprogress = (int) progress;
 
                 publishProgress(currentprogress+"");
+                progressBar.setVisibility(View.VISIBLE);
                 progressBar.setProgress(currentprogress);
+
+                if(currentprogress==100)
+        {
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+
+        }
             }
         }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -114,16 +132,23 @@ public class Asyncc extends AsyncTask<String, String, String> {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.d("storage url", "onSuccess: uri= "+ uri.toString());
-                        firebase_storage_picture=uri+"";
+                       // firebase_storage_picture=uri+"";
                         editor.putString("last_upload_url", uri+"");
                         editor.commit(); // commit changes
+
+                        try {
+                            uploadfunc.evaluate_model(tempuri,ctx,image_labeler);
+                            uploadfunc.get_LatLong(ctx);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 });
             }
         });
 
-        return firebase_storage_picture+"";
+     //   return firebase_storage_picture+"";
 
     }
 
@@ -133,6 +158,8 @@ public class Asyncc extends AsyncTask<String, String, String> {
         super.onPreExecute();
         progressBar.setProgress(0);
         progressBar.setVisibility(View.VISIBLE);
+        this.pgdialog.setMessage("Progress start");
+        this.pgdialog.show();
     }
 
 
@@ -140,10 +167,16 @@ public class Asyncc extends AsyncTask<String, String, String> {
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
 
+
+
+
+      //  firebase_storage_picture=aVoid;
+
         progressBar.setVisibility(View.GONE);
 
-        firebase_storage_picture=aVoid;
-
+        if (pgdialog.isShowing()) {
+            pgdialog.dismiss();
+        }
 
 
 
@@ -152,17 +185,16 @@ public class Asyncc extends AsyncTask<String, String, String> {
 
     @Override
     protected void onProgressUpdate(String... values) {
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setProgress(Integer.parseInt(values[0]));
-       // Log.d("progg",values[0]+"");
-        if(Integer.parseInt(values[0])==100)
-        {
-            progressBar.setVisibility(View.GONE);
-            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
-          //  update_firestore();
-            //
-        }
-        //super.onProgressUpdate(values);
+//        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setProgress(Integer.parseInt(values[0]));
+//       // Log.d("progg",values[0]+"");
+//        if(Integer.parseInt(values[0])==100)
+//        {
+//            progressBar.setVisibility(View.GONE);
+//            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+//
+//        }
+
     }
 
 

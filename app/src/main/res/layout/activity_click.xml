@@ -125,7 +125,7 @@
             app:layout_constraintGuide_begin="20dp" />
 
         <ImageView
-            android:id="@+id/imageView1_markzone"
+            android:id="@+id/camera_click"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="32dp"
@@ -204,7 +204,7 @@
 
 
         <Button
-            android:id="@+id/button_markzone"
+            android:id="@+id/upload_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
