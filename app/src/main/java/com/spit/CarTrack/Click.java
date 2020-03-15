@@ -239,6 +239,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     public void execute_asyncc() {
 
+        Log.d("PHOTO KA URL",photoURI+"");
+
         if(photoURI!=null) {
             progress = new Asyncc(this, photoURI, progressBar, labeler);
             progress.execute();

@@ -126,18 +126,20 @@ public class Asyncc extends AsyncTask<String, String, String> {
                         editor.putString("last_upload_url", uri+"");
                         editor.commit(); // commit changes
 
+                        if(currentprogress==100)
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+
+                        }
+
 
                             uploadfunc.evaluate_model(tempuri,ctx,image_labeler,label_conf);
                      //   Toast.makeText(ctx, "The car is "+label_conf[0]+" , with a confidence of "+  label_conf[1], Toast.LENGTH_LONG).show();
                       //  uploadfunc.get_LatLong(ctx,return_label_conf[0],return_label_conf[1]);
 
 
-                        if(currentprogress==100)
-                        {
-                            progressBar.setVisibility(View.GONE);
-                          //  Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
 
-                        }
 
                     }
                 });
