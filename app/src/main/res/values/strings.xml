@@ -7,18 +7,35 @@
     <string name="phone_hint"></string>
     <string name="SPIT">Sardar Patel Institute of Technology (S.P.I.T)</string>
     <string name="map_key" translatable="false">
-        AIzaSyDTBr8P8NwoeGIYPqqzyZahaFRkFgtOHJk
+        AIzaSyBNBfnKWYNIHJ1xWO0D-nbS2ZXLvcv54vk
     </string>
-    <string name="describe"></string>
+    <string name="describe"><font size="20">The institute is located in 47 acres of green campus at Andheri (W), the fastest growing suburb of Mumbai. The campus also houses four Bhavan’s Institutions of great repute namely Bhavan’s College (the arts, commerce and science college), Sardar Patel College of Engineering – Government aided Engineering college, S.P. Jain Institute of Management and Research, a management institute and A.H. Wadia, higher secondary school.
+
+In 1957, the Bharatiya Vidya Bhavan conceived the idea of establishing an engineering college in Mumbai. Sardar Patel College of Engineering was inaugurated on 19th August 1962.
+
+        In 1995 self-financed engineering courses were added to it and it functioned as Sardar Patel College of Engineering (Unaided-wing) conducting Electronics Engineering, Computer Engineering and Information Technology Courses and Masters course in Electronics since 2005 till 2008. These courses have earned a great reputation in the field of engineering education, as well as industry. Bharatiya Vidya Bhavan’s Sardar Patel College of Engineering, Unaided Wing was established in its new building under the name and style of Bharatiya Vidya Bhavan’s Sardar Patel Institute of Technology since 2005 and is affiliated to Mumbai University.</font></string>
 
     <string name="write">In case of any difficulty, please contact us on:</string>
-    <string name="mail">trackonpark@gmail.com</string>
-    <string name="help"></string>
+    <string name="mail">trackonparkspit@gmail.com</string>
+    <string name="help"><font size="20"><li> One can register or sign in with their Google Account to the application.</li>\n
+        <li> The main page of the application is divided into three main regions which are Log Entries, My Location, Settings.</li>\n
+        <li> Log Entries contains options such as upload and retrieve to upload images to firebase and to retrieve information from firebase</li>\n
+        <li> My Location will show you your current location. </li>\n
+        <li> Settings is given for extra help purpose.</li> \n
+        <li>In case of any difficulty,please contact us on trackonparkspit@gmail.com </li>\n
+        </font></string>
 
-    <string name="disclaimer"></string>
-
+    <string name="disclaimer"><font size="20"><li>1)This app is intended to be used only by the BMC officials. </li>\n
+        <li>2) The information contained on  TrackOnPark app and the Firebase linked with it,  is for general information purposes only.  </li>\n
+        <li>3) Any unauthorized uploading of contents and /or violation of Intellectual property rights is the sole responsibility of the user. </li>\n
+        <li>4) We only collect photos uploaded on the application through the user’s login id for our dataset requirement. </li> \n
+        <li>Except this, we don’t collect any personal information or data from the user. </li> \n
+        <li>5) In no event, we shall be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other arising out of or in connection with the use of the Service or the contents of the Service. 6) We reserve the right to make additions, deletions, or modification to the contents on the Service at any time without prior notice. </li> \n
+    </font></string>
 
     <string name="password">Password</string>
+
+
 
 
 </resources>

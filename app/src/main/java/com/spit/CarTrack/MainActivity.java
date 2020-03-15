@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -35,13 +35,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.karan.churi.PermissionManager.PermissionManager;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 //package com.example.CarTrack;
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     private GoogleSignInOptions gso;
     private GoogleSignInClient mGoogleSignInClient;
     private ImageButton google_btn;
@@ -58,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //Permission Manager Object
     PermissionManager permissionManager;
+
+    Button btn_login;
+    Button btn_register;
+    TextView TermsAndConditions;
 
 
     @Override
@@ -76,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         };
         permissionManager.checkAndRequestPermissions(this);
 
-        loginbt =  findViewById(R.id.login);
-        signupbt =  findViewById(R.id.signup);
-        signupbt.setOnClickListener(this);
-        loginbt.setOnClickListener(this);
+//        loginbt =  findViewById(R.id.login);
+//        signupbt =  findViewById(R.id.signup);
+       // signupbt.setOnClickListener(this);
+        //loginbt.setOnClickListener(this);
         //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         //getWindow().setStatusBarColor(Color.TRANSPARENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -109,10 +112,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .requestEmail()
                 .build();
 
+
+
+        btn_login=(Button) findViewById(R.id.login);
+        btn_register=(Button) findViewById(R.id.signup);
+        TermsAndConditions=(TextView) findViewById(R.id.LTwo);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(MainActivity.this,LoginTOP.class);
+                startActivity(intent);
+
+            }
+        });
+        TermsAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(MainActivity.this,PrivacyPolicy.class);
+                startActivity(intent);
+
+            }
+        });
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent in=new Intent(MainActivity.this,Register.class);
+                startActivity(in);
+            }
+        });
+
+
         googlesignin();
     }
 
     private void googlesignin() {
+
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         google_btn.setOnClickListener(new View.OnClickListener() {
@@ -257,17 +296,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    @Override
-    public void onClick(View view) {
-        if (view == loginbt) {
-            // startActivity(new Intent(MainActivity.this, Login.class));
-        }
-
-        if (view == signupbt) {
-            //  startActivity(new Intent(MainActivity.this, Signup.class));
-        }
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

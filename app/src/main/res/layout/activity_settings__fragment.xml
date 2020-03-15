@@ -87,7 +87,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/logo"
+            android:id="@+id/userprofile_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -161,6 +161,7 @@
 
         <Button
             android:id="@+id/logout"
+            android:onClick="logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
