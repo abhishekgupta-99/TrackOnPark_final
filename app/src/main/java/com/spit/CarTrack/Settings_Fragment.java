@@ -30,9 +30,11 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Settings_Fragment extends Fragment {
     private FirebaseAuth mAuth;
-    private ImageView profilephoto;
+    private CircleImageView profilepic;
     private GoogleSignInClient mGoogleSignInClient;
 
 
@@ -41,7 +43,7 @@ public class Settings_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.activity_settings__fragment, container, false);
-        profilephoto=view.findViewById(R.id.userprofile_image);
+        profilepic=(CircleImageView) view.findViewById(R.id.profilephoto);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,7 +60,7 @@ public class Settings_Fragment extends Fragment {
             //Toast.makeText(getActivity(), personPhoto+"", Toast.LENGTH_SHORT).show();
           //  profilephoto.setImageURI(personPhoto);
 
-            Picasso.get().load(personPhoto).into(profilephoto);
+            Picasso.get().load(personPhoto).into(profilepic);
         }
 
 

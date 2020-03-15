@@ -16,6 +16,6 @@ public class Terms extends AppCompatActivity {
 
         terms= findViewById(R.id.pdfterms);
 
-        terms.fromAsset("terms.pdf").load();
+        terms.fromAsset("TermsTOP.pdf").load();
     }
 }

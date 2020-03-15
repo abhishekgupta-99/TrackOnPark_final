@@ -239,9 +239,12 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     public void execute_asyncc() {
 
-        Log.d("PHOTO KA URL",photoURI+"");
+        Log.d("PHOTO KA URL",Uri.fromFile(new File(photoURI+""))+"");
+
+        //Uri.fromFile(new File(photoURI+""));
 
         if(photoURI!=null) {
+            Log.d("Enter","entered");
             progress = new Asyncc(this, photoURI, progressBar, labeler);
             progress.execute();
         }
@@ -260,7 +263,10 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
         FirebaseVisionImage image_model = null;
         try {
+
+
             image_model = FirebaseVisionImage.fromFilePath(ctx, photoURI);
+            Log.d("Model",image_model+"");
         } catch (IOException e) {
             e.printStackTrace();
 
@@ -319,7 +325,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                 });
 
 
-        Log.d("Async_label_return",label_conf[0]+"");
+     //   Log.d("Async_label_return",label_conf[0]+"");
 
 
     }
@@ -371,7 +377,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
                 photoURI= Uri.fromFile(new File(list.get(0).getPath()));
 
-                Log.d(  "pathhh",photoURI+"");
+                Log.d(  "pathhh",list.get(0).getPath()+"");
                 Toast.makeText(this, "file path : "+photoURI+"", Toast.LENGTH_SHORT).show();
 
                 file_attach.setImageURI(Uri.fromFile(new File(list.get(0).getPath())));
