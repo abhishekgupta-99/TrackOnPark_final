@@ -19,7 +19,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_home_fragment, container, false);
 
 
-        Button button = (Button) view.findViewById(R.id.chin);
+        Button button = view.findViewById(R.id.chin);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

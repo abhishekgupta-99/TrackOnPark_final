@@ -23,6 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -58,6 +60,8 @@ public class retrieve_data extends AppCompatActivity {
                 holder.address.setText(car.getAddresss());
                 holder.timestamp.setText(getDate(car.getTimeStamp()+""));
                 holder.uploader.setText(car.getUploader()+"");
+                holder.Label.setText(car.getLabel()+"");
+                holder.accuracy.setText(car.getAccuracy()+"");
                 Picasso.get().load(car.getImage_Url()+"").into(holder.car_picture);
                 Log.d("URLLLLLLLLLLLL",car.getImage_Url()+"");
              //   Toast.makeText(retrieve_data.this, car.getAccuracy()+"", Toast.LENGTH_SHORT).show();
@@ -111,6 +115,8 @@ public class retrieve_data extends AppCompatActivity {
         public TextView accuracy;
         public ImageView navigate_gmaps;
         public ImageView car_picture;
+       // public TextView accuracy;
+        public TextView Label;
 
     //    public TextView zoneInitials;
 
@@ -123,6 +129,9 @@ public class retrieve_data extends AppCompatActivity {
             timestamp = itemView.findViewById(R.id.days);
             navigate_gmaps=itemView.findViewById(R.id.navigate_gps);
             car_picture=itemView.findViewById(R.id.car_pic);
+            accuracy=itemView.findViewById(R.id.accuracy);
+            Label=itemView.findViewById(R.id.carType);
+
         //    accuracy = itemView.findViewById(R.id.textView_site_id);
         }
 

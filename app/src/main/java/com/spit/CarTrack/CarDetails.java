@@ -7,6 +7,16 @@ public class CarDetails {
     private String accuracy;
     private Long TimeStamp;
 private double Latitude;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    private  String label;
     private double Longitude;
     private String Image_Url;
 

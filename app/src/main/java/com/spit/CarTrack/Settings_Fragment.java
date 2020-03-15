@@ -19,7 +19,7 @@ public class Settings_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_settings__fragment, container, false);
 
 
-        Button button = (Button) view.findViewById(R.id.button);
+        Button button = view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +29,7 @@ public class Settings_Fragment extends Fragment {
             }
         });
 
-        Button buttonLog = (Button) view.findViewById(R.id.logout);
+        Button buttonLog = view.findViewById(R.id.logout);
         buttonLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +39,7 @@ public class Settings_Fragment extends Fragment {
             }
         });
 
-        Button buttonAbout = (Button) view.findViewById(R.id.about);
+        Button buttonAbout = view.findViewById(R.id.about);
         buttonAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +49,7 @@ public class Settings_Fragment extends Fragment {
             }
         });
 
-        Button buttonContact = (Button) view.findViewById(R.id.contact);
+        Button buttonContact = view.findViewById(R.id.contact);
         buttonContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +59,7 @@ public class Settings_Fragment extends Fragment {
             }
         });
 
-        Button buttonTerm = (Button) view.findViewById(R.id.conditions);
+        Button buttonTerm = view.findViewById(R.id.conditions);
         buttonTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,7 +69,7 @@ public class Settings_Fragment extends Fragment {
             }
         });
 
-        Button buttonPrivate = (Button) view.findViewById(R.id.privacy);
+        Button buttonPrivate = view.findViewById(R.id.privacy);
         buttonPrivate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

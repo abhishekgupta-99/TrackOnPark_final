@@ -248,17 +248,22 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public void evaluate_model(Uri photoURI, final Context ctx,FirebaseVisionImageLabeler labeler) {
+    public String[] evaluate_model(Uri photoURI, final Context ctx,FirebaseVisionImageLabeler labeler) {
 
        // Toast.makeText(ctx, photoURI+"", Toast.LENGTH_LONG).show();
        final SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         final SharedPreferences.Editor sp_editor=pref.edit();
+
+        final String[] label_conf = new String[2];
+
 
         FirebaseVisionImage image_model = null;
         try {
             image_model = FirebaseVisionImage.fromFilePath(ctx, photoURI);
         } catch (IOException e) {
             e.printStackTrace();
+
+            Toast.makeText(ctx, "Image Model couldn't be created", Toast.LENGTH_SHORT).show();
         }
 
         //   Toast.makeText(this, image_model+"", Toast.LENGTH_SHORT).show();
@@ -271,16 +276,24 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                         // Task completed successfully
 
                         for (FirebaseVisionImageLabel label: labels) {
-                             String text_label = label.getText();
+                           final String text_label = label.getText();
                       //      Log.d("ML_OUTPUT", text);
-                           String label_confidence = label.getConfidence()+"";
+                          final String label_confidence = label.getConfidence()+"";
                           //  Toast.makeText(this, "qfwe", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(ctx, "The car is "+text_label+" , with a confidence of "+label_confidence, Toast.LENGTH_LONG).show();
+                            label_conf[0] =text_label;
+                            label_conf[1]=label_confidence;
+
+
+                            Toast.makeText(ctx, "The car is "+label_conf[0]+" , with a confidence of "+  label_conf[1], Toast.LENGTH_LONG).show();
 
                             sp_editor.putString("confidence",label_confidence+"");
                             sp_editor.putString("label",text_label);
                             sp_editor.commit();
+
+
+
+
 
                         }
                         // ...
@@ -291,8 +304,17 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                     public void onFailure(@NonNull Exception e) {
                         // Task failed with an exception
                         // ...
+
+                        Toast.makeText(ctx, "ML Labeller failed", Toast.LENGTH_LONG).show();
+                        Log.d("ML_OUTPUT", "Failed");
+
+
                     }
                 });
+
+        return label_conf;
+
+
     }
 
 
@@ -381,7 +403,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-   public void get_LatLong(Context ctx) throws IOException {
+   public void get_LatLong(Context ctx, String lab, String conf) {
 
         gps = new GPSTracker(ctx);
         if(gps.canGetLocation())
@@ -389,8 +411,13 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
 
-            String address=getAddress(ctx,latitude,longitude);
-            update_firestore(ctx,address,latitude,longitude);
+            String address= null;
+            try {
+                address = getAddress(ctx,latitude,longitude);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            update_firestore(ctx,address,latitude,longitude,lab,conf);
 
             // \n is for new line
           //  Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
@@ -420,17 +447,17 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
         String ADDRESS = address+" , "+city+" , "+state+" , "+country+" , "+postalCode;
 
-        Toast.makeText(ctx, city+state+postalCode+address, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, city+state+postalCode+address, Toast.LENGTH_LONG).show();
 
         return ADDRESS;
     }
 
-    public void update_firestore(final Context ctx, String address, double latitude, double longitude) {
+    public void update_firestore(final Context ctx, String address, double latitude, double longitude, String lab, String conf) {
       SharedPreferences  pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
         String last_upload_url=pref.getString("last_upload_url", null);
-        String ml_label=pref.getString("label", null);
-        String ml_confidence=pref.getString("confidence", null);
+//        String ml_label=pref.getString("label", null);
+//        String ml_confidence=pref.getString("confidence", null);
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Long tsLong = System.currentTimeMillis()/1000;
@@ -438,13 +465,13 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
         Map<String, Object> car_details = new HashMap<>();
         car_details.put("TimeStamp", tsLong);
-        car_details.put("accuracy", ml_confidence);
+        car_details.put("accuracy", conf);
         car_details.put("Uploader",user_email);
         car_details.put("latitude",latitude);
         car_details.put("longitude", longitude);
         car_details.put("Addresss",address);
         car_details.put("Image_Url",last_upload_url);
-        car_details.put("label",ml_label);
+        car_details.put("label",lab);
 
 
 //        DocumentReference document =

@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         //signInButton.setSize(SignInButton.SIZE_STANDARD);
 
-        google_btn = (ImageButton) findViewById(R.id.sign_in_button);
+        google_btn = findViewById(R.id.sign_in_button);
 
 
 
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        password_Et= (EditText) v.findViewById(R.id.password_edit);
+                        password_Et= v.findViewById(R.id.password_edit);
 
                         // Log.d("correct_password_edit", passowrd.toString());
                         password_entered = password_Et.getText().toString();

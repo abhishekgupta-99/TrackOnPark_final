@@ -18,7 +18,7 @@ public class Privacy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
-        btn_accept=(Button) findViewById(R.id.accept);
+        btn_accept= findViewById(R.id.accept);
 
 
 

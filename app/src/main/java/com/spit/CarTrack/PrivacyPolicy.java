@@ -15,7 +15,7 @@ public class PrivacyPolicy extends AppCompatActivity {
         setContentView(R.layout.activity_privacy_policy);
 
 
-        policy=(PDFView) findViewById(R.id.pdfpolicy);
+        policy= findViewById(R.id.pdfpolicy);
 
         policy.fromAsset("PrivacyPolicy.pdf").load();
 

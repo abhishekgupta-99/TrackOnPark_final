@@ -19,9 +19,9 @@ public class LoginTOP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_top);
 
-        textBack=(TextView) findViewById(R.id.back);
-        btn_login=(Button) findViewById(R.id.login1);
-        textRegister=(TextView) findViewById(R.id.regis);
+        textBack= findViewById(R.id.back);
+        btn_login= findViewById(R.id.login1);
+        textRegister= findViewById(R.id.regis);
 
 
         textRegister.setOnClickListener(new View.OnClickListener() {

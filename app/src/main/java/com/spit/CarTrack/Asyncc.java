@@ -1,5 +1,4 @@
 package com.spit.CarTrack;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -125,12 +124,9 @@ public class Asyncc extends AsyncTask<String, String, String> {
                         editor.putString("last_upload_url", uri+"");
                         editor.commit(); // commit changes
 
-                        try {
-                            uploadfunc.evaluate_model(tempuri,ctx,image_labeler);
-                            uploadfunc.get_LatLong(ctx);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+
+                           String[] label_conf= uploadfunc.evaluate_model(tempuri,ctx,image_labeler);
+                            uploadfunc.get_LatLong(ctx,label_conf[0],label_conf[1]);
 
 
                         if(currentprogress==100)

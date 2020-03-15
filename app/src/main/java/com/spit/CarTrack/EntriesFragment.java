@@ -21,7 +21,7 @@ public class EntriesFragment extends Fragment {
        View view = inflater.inflate(R.layout.activity_entries_fragment, container, false);
 
 
-        Button button3 = (Button) view.findViewById(R.id.upload);
+        Button button3 = view.findViewById(R.id.upload);
         Button retrieve= view.findViewById(R.id.RETREIVE);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
