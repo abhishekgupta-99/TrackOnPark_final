@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -41,8 +42,10 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toTopOf="@+id/guidelineTop">
+        app:layout_constraintTop_toTopOf="@+id/guidelineTop"
+        app:layout_constraintVertical_bias="1.0">
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -64,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.35" />
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -79,14 +82,14 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline48"
             app:layout_constraintEnd_toStartOf="@+id/guideline47"
             app:layout_constraintStart_toStartOf="@+id/guideline36"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/guideline51" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline49"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
+            app:layout_constraintGuide_percent="0.45" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -108,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.53438395" />
+            app:layout_constraintGuide_percent="0.65" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline50"
@@ -122,7 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="20dp" />
+            app:layout_constraintGuide_percent="0.08" />
 
         <ImageView
             android:id="@+id/camera_click"
@@ -164,7 +167,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.60888255" />
+            app:layout_constraintGuide_percent="0.76" />
 
         <TextView
             android:id="@+id/commentsss2"
@@ -178,7 +181,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline53"
             app:layout_constraintEnd_toStartOf="@+id/guideline50"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline52" />
+            app:layout_constraintTop_toTopOf="@+id/guideline52"
+            android:gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/commentsss"
@@ -192,15 +196,15 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline53"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline50"
-            app:layout_constraintTop_toTopOf="@+id/guideline52" />
+            app:layout_constraintTop_toTopOf="@+id/guideline52"
+            android:gravity="center_horizontal" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.77" />
-
+            app:layout_constraintGuide_percent="0.92" />
 
 
         <Button
@@ -221,8 +225,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline53" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

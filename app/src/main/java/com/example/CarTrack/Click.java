@@ -302,38 +302,6 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     //   Log.d("bataBAOS0", String.valueOf(dataBAOS[0]));
 
 
-    public void uploadphoto (Uri dataBAOS){
-
-        FirebaseStorage storage;
-        StorageReference storageRef;
-        storage = FirebaseStorage.getInstance();
-
-
-        // progress.onPreExecute();
-
-        //    byte[] data = baos.toByteArray();
-
-        storageRef = storage.getReference().child("" + new Date().getTime());
-
-        UploadTask uploadTask = storageRef.putFile(dataBAOS);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
-
-
-            }
-        });
-        //   mProgress.dismiss();
-        // progress.onPostExecute(null);
-
-    }
 
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
@@ -372,13 +340,13 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         {
             if (resultCode == RESULT_OK) {
                 ArrayList<ImageFile> list = data.getParcelableArrayListExtra(Constant.RESULT_PICK_IMAGE);
-               // Log.d("LISTTTT",list.get(0).toString());
-
-                // Uri path = Uri.fromFile(list.get(0));
 
                 //Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(list.get(0)));
-                Log.d(  "pathhh",list.get(0).getPath());
+
                 photoURI= Uri.fromFile(new File(list.get(0).getPath()));
+
+                Log.d(  "pathhh",photoURI+"");
+                Toast.makeText(this, photoURI+"", Toast.LENGTH_SHORT).show();
 
                 file_attach.setImageURI(Uri.fromFile(new File(list.get(0).getPath())));
                 upload_btn.setClickable(true);
