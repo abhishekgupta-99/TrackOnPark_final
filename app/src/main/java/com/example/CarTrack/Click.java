@@ -428,7 +428,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
             // Can't get location.
             // GPS or network is not enabled.
             // Ask user to enable GPS/network in settings.
-            Toast.makeText(getApplicationContext(), "Cannot get location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ctx, "Cannot get location", Toast.LENGTH_SHORT).show();
 
         }
 
