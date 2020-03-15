@@ -248,13 +248,12 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public String[] evaluate_model(Uri photoURI, final Context ctx,FirebaseVisionImageLabeler labeler) {
+    public void evaluate_model(Uri photoURI, final Context ctx, FirebaseVisionImageLabeler labeler, final String[] label_conf) {
 
        // Toast.makeText(ctx, photoURI+"", Toast.LENGTH_LONG).show();
        final SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         final SharedPreferences.Editor sp_editor=pref.edit();
 
-        final String[] label_conf = new String[2];
 
 
         FirebaseVisionImage image_model = null;
@@ -276,22 +275,27 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                         // Task completed successfully
 
                         for (FirebaseVisionImageLabel label: labels) {
-                           final String text_label = label.getText();
+                            String text_label = label.getText();
                       //      Log.d("ML_OUTPUT", text);
-                          final String label_confidence = label.getConfidence()+"";
+                           String label_confidence = label.getConfidence()+"";
                           //  Toast.makeText(this, "qfwe", Toast.LENGTH_SHORT).show();
 
                             label_conf[0] =text_label;
                             label_conf[1]=label_confidence;
 
+                            get_LatLong(ctx,text_label,label_confidence);
 
                             Toast.makeText(ctx, "The car is "+label_conf[0]+" , with a confidence of "+  label_conf[1], Toast.LENGTH_LONG).show();
+
+
+                            Log.d("Async_label",label_conf[0]+"");
+
+
+
 
                             sp_editor.putString("confidence",label_confidence+"");
                             sp_editor.putString("label",text_label);
                             sp_editor.commit();
-
-
 
 
 
@@ -312,7 +316,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
-        return label_conf;
+
+        Log.d("Async_label_return",label_conf[0]+"");
 
 
     }
@@ -452,12 +457,14 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         return ADDRESS;
     }
 
-    public void update_firestore(final Context ctx, String address, double latitude, double longitude, String lab, String conf) {
+    public void update_firestore(final Context ctx, String address, double latitude, double longitude, final String lab, final String conf) {
       SharedPreferences  pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
         String last_upload_url=pref.getString("last_upload_url", null);
 //        String ml_label=pref.getString("label", null);
 //        String ml_confidence=pref.getString("confidence", null);
+
+
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Long tsLong = System.currentTimeMillis()/1000;
@@ -486,6 +493,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(ctx, "Successfully car updated firestore", Toast.LENGTH_SHORT).show();
 
+
+                        //Toast.makeText(ctx, "The car is "+lab+" , with a confidence of "+  conf, Toast.LENGTH_LONG).show();
                         // get_LatLong();
 
                         //  Log.d(TAG, "DocumentSnapshot successfully written!");

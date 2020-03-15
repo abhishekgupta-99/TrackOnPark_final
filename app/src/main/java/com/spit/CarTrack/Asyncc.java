@@ -119,20 +119,23 @@ public class Asyncc extends AsyncTask<String, String, String> {
                 storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+
+                        String[] label_conf= new String[2];
                         Log.d("storage url", "onSuccess: uri= "+ uri.toString());
                        // firebase_storage_picture=uri+"";
                         editor.putString("last_upload_url", uri+"");
                         editor.commit(); // commit changes
 
 
-                           String[] label_conf= uploadfunc.evaluate_model(tempuri,ctx,image_labeler);
-                            uploadfunc.get_LatLong(ctx,label_conf[0],label_conf[1]);
+                            uploadfunc.evaluate_model(tempuri,ctx,image_labeler,label_conf);
+                     //   Toast.makeText(ctx, "The car is "+label_conf[0]+" , with a confidence of "+  label_conf[1], Toast.LENGTH_LONG).show();
+                      //  uploadfunc.get_LatLong(ctx,return_label_conf[0],return_label_conf[1]);
 
 
                         if(currentprogress==100)
                         {
                             progressBar.setVisibility(View.GONE);
-                            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
 
                         }
 
