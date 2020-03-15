@@ -1,10 +1,10 @@
-package com.example.CarTrack;
+package com.spit.CarTrack;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.CarTrack.R;
+import com.spit.CarTrack.R;
 
 import android.view.MenuItem;
 

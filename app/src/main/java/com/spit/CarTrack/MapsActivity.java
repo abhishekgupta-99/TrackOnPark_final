@@ -1,4 +1,4 @@
-package com.example.CarTrack;
+package com.spit.CarTrack;
 
 import android.Manifest;
 import android.content.Context;
@@ -28,7 +28,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.CarTrack.R;
+import com.spit.CarTrack.R;
 
 import java.io.IOException;
 import java.util.List;

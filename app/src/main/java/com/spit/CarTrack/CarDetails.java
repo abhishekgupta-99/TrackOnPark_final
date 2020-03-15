@@ -1,6 +1,4 @@
-package com.example.CarTrack;
-
-import android.net.Uri;
+package com.spit.CarTrack;
 
 public class CarDetails {
 

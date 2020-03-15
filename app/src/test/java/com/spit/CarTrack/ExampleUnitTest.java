@@ -1,4 +1,4 @@
-package com.example.CarTrack;
+package com.spit.CarTrack;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.CarTrack;
+package com.spit.CarTrack;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,9 +42,6 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel;
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import com.google.firebase.ml.vision.label.FirebaseVisionOnDeviceAutoMLImageLabelerOptions;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.vincent.filepicker.Constant;
 import com.vincent.filepicker.activity.ImagePickActivity;
 import com.vincent.filepicker.filter.entity.ImageFile;
@@ -346,7 +343,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
                 photoURI= Uri.fromFile(new File(list.get(0).getPath()));
 
                 Log.d(  "pathhh",photoURI+"");
-                Toast.makeText(this, photoURI+"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "file path : "+photoURI+"", Toast.LENGTH_SHORT).show();
 
                 file_attach.setImageURI(Uri.fromFile(new File(list.get(0).getPath())));
                 upload_btn.setClickable(true);
