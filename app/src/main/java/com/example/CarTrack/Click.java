@@ -242,12 +242,18 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
     public void execute_asyncc() {
 
-        progress = new Asyncc(this, photoURI, progressBar,labeler);
-        progress.execute();
+        if(photoURI!=null) {
+            progress = new Asyncc(this, photoURI, progressBar, labeler);
+            progress.execute();
+        }
+        else
+            Toast.makeText(this, "Cannot get Image File Path", Toast.LENGTH_SHORT).show();
 
     }
 
     public void evaluate_model(Uri photoURI, final Context ctx,FirebaseVisionImageLabeler labeler) {
+
+       // Toast.makeText(ctx, photoURI+"", Toast.LENGTH_LONG).show();
        final SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         final SharedPreferences.Editor sp_editor=pref.edit();
 
@@ -269,12 +275,11 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
                         for (FirebaseVisionImageLabel label: labels) {
                              String text_label = label.getText();
-                            Log.d("ML_OUTPUT", text);
+                      //      Log.d("ML_OUTPUT", text);
                            String label_confidence = label.getConfidence()+"";
                           //  Toast.makeText(this, "qfwe", Toast.LENGTH_SHORT).show();
 
                             Toast.makeText(ctx, "The car is "+text_label+" , with a confidence of "+label_confidence, Toast.LENGTH_LONG).show();
-
 
                             sp_editor.putString("confidence",label_confidence+"");
                             sp_editor.putString("label",text_label);
@@ -456,7 +461,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void update_firestore(final Context ctx, String address, double latitude, double longitude) {
-        pref = ctx.getSharedPreferences("MyPref", 0);
+      SharedPreferences  pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
         String last_upload_url=pref.getString("last_upload_url", null);
         String ml_label=pref.getString("label", null);

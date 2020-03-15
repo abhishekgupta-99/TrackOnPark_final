@@ -108,12 +108,7 @@ public class Asyncc extends AsyncTask<String, String, String> {
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.setProgress(currentprogress);
 
-                if(currentprogress==100)
-        {
-            progressBar.setVisibility(View.GONE);
-            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
 
-        }
             }
         }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -141,6 +136,14 @@ public class Asyncc extends AsyncTask<String, String, String> {
                             uploadfunc.get_LatLong(ctx);
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+
+                        if(currentprogress==100)
+                        {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
