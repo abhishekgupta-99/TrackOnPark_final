@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                             //    Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            startActivity(new Intent(MainActivity.this, MainActivity1.class));
+                            //startActivity(new Intent(MainActivity.this, MainActivity1.class));
 
 
                             //  updateUI(user);

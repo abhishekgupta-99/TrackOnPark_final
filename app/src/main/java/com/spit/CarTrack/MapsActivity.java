@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.spit.CarTrack.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,6 +45,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+
+
+
+    List<Marker> markers = new ArrayList<Marker>();
     private GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +119,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
+
+
+        // This is how u add a marker
+//        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(19.1248282,72.8589))); //...
+//        markers.add(marker);
+
         LocationManager locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
         String provider = locationManager.getBestProvider(new Criteria(), true);
