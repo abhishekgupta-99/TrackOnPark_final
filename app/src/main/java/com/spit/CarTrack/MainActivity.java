@@ -79,12 +79,6 @@ public class MainActivity extends AppCompatActivity {
         };
         permissionManager.checkAndRequestPermissions(this);
 
-//        loginbt =  findViewById(R.id.login);
-//        signupbt =  findViewById(R.id.signup);
-       // signupbt.setOnClickListener(this);
-        //loginbt.setOnClickListener(this);
-        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE|View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        //getWindow().setStatusBarColor(Color.TRANSPARENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.white));
         }
@@ -93,16 +87,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         dialog();
-        //signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-        //signInButton.setSize(SignInButton.SIZE_STANDARD);
-
         google_btn = findViewById(R.id.sign_in_button);
 
 
 
 
-
-
+        
 
         // FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -197,20 +187,6 @@ public class MainActivity extends AppCompatActivity {
 
             updatefirestore_user(account);
 
-//            startActivity(new Intent(MainActivity.this, Main2Activity.class));
-
-            // Signed in successfully, show authenticated UI.
-
-
-            //   Toast.makeText(this, "Successfully Signed In", Toast.LENGTH_SHORT).show();
-
-
-            //Start ur new activity here
-
-
-            //startActivity(new Intent(MainActivity.this,OTP.class));
-
-
             //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -235,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //    Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            startActivity(new Intent(MainActivity.this, MainActivity1.class));
 
 
                             //  updateUI(user);
