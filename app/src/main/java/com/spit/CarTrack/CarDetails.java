@@ -11,6 +11,7 @@ public class CarDetails {
     private String accuracy;
     private Long TimeStamp;
     private double Latitude;
+    private  boolean proof_status;
    /* TextView TermsAndConditions;*/
 
     public String getLabel() {
@@ -66,12 +67,13 @@ public class CarDetails {
         TimeStamp = timeStamp;
     }
 
-    public CarDetails(String uploader, String address, String accuracy, Long timestamp,String image_path_storage) {
+    public CarDetails(String uploader, String address, String accuracy, Long timestamp,String image_path_storage, boolean proof_status) {
         this.Uploader = uploader;
         this.Addresss = address;
         this.accuracy = accuracy;
         this.TimeStamp = timestamp;
         this.Image_Url=image_path_storage;
+        this.proof_status= proof_status;
 
     }
 
@@ -96,5 +98,11 @@ public class CarDetails {
     }
 
 
-
+    public boolean isProof_status() {
+        return proof_status;
     }
+
+    public void setProof_status(boolean proof_status) {
+        this.proof_status = proof_status;
+    }
+}

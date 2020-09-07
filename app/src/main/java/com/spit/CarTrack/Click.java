@@ -186,15 +186,8 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
 
 
         if (view == upload_btn) {
-
             //evaluate_model();
             execute_asyncc();
-
-            // picture_url=progress.getFirebase_storage_picture();
-
-
-
-
           //  Uri picture_url=progress.getFirebase_storage_picture();
            // Log.d("Picture urlll",picture_url+"");
             upload_btn.setClickable(false);
@@ -487,6 +480,7 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         car_details.put("Addresss",address);
         car_details.put("Image_Url",last_upload_url);
         car_details.put("label",lab);
+        car_details.put("proof_status",false);
 
 
 //        DocumentReference document =

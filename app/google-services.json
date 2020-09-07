@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "4773735112-s6vntrh961lt0jnl2iu69s45kn59katl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spit.CarTrack",
+            "certificate_hash": "32bfc374b36412d3029742093941089dadb6971d"
+          }
+        },
+        {
+          "client_id": "4773735112-2354s39rn3e79s746sbs7nvao1tmcd3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spit.CarTrack",
+            "certificate_hash": "e2f60e88a6461df7787422f8119d5f38d4c3ebb0"
+          }
+        },
+        {
           "client_id": "4773735112-mh0m43i56h39pekmf94cojujsrmurd2s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

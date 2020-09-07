@@ -89,13 +89,21 @@ public class retrieve_data extends AppCompatActivity {
 
                         } catch (Exception e) {
                             e.printStackTrace();
-
                             Toast.makeText(retrieve_data.this, "Google Maps Not Installed", Toast.LENGTH_SHORT).show();
 
                         }
 
                     }
                 });
+
+                holder.proof.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(getApplicationContext(), Proof.class));
+                    }
+                });
+
+
             }
 
             @NonNull
@@ -129,6 +137,7 @@ public class retrieve_data extends AppCompatActivity {
         public ImageView car_picture;
        // public TextView accuracy;
         public TextView Label;
+        public  TextView proof;
 
     //    public TextView zoneInitials;
 
@@ -143,6 +152,8 @@ public class retrieve_data extends AppCompatActivity {
             car_picture=itemView.findViewById(R.id.car_pic);
             accuracy=itemView.findViewById(R.id.accuracy);
             Label=itemView.findViewById(R.id.carType);
+            proof =itemView.findViewById(R.id.proof_card);
+
 
         //    accuracy = itemView.findViewById(R.id.textView_site_id);
         }
