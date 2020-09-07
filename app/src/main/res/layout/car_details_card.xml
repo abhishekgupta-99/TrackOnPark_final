@@ -133,7 +133,26 @@
             android:layout_below="@+id/uploader"
             android:paddingLeft="20dp" />
 
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/proof"
+            android:textSize="15sp"
+            android:text="Upload Proof"
+            android:drawableStart="@drawable/ic_baseline_cloud_upload_24"
+            android:textColor="#F80E335A"
+            android:textStyle="bold|normal"
+            android:drawablePadding="10dp"
+            android:layout_toEndOf="@+id/car_pic"
+            android:layout_toRightOf="@+id/car_pic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/days"
+            android:drawableLeft="@drawable/ic_baseline_cloud_upload_24" />
+
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/proof"
@@ -151,6 +170,8 @@
             android:paddingLeft="20dp"
             tools:ignore="UnknownId" />
 
+
+-->
 
 
 

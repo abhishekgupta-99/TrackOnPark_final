@@ -253,8 +253,10 @@
             android:inputType="textMultiLine"
             app:layout_constraintBottom_toTopOf="@+id/upload_proof"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.19"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline53" />
+            app:layout_constraintTop_toTopOf="@+id/guideline53"
+            app:layout_constraintVertical_bias="0.472" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

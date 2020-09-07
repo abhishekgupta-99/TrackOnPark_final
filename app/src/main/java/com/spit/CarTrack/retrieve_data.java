@@ -31,6 +31,7 @@ import java.util.Locale;
 public class retrieve_data extends AppCompatActivity {
 
     private FirestoreRecyclerAdapter<CarDetails, Car_Viewholer> adapter;
+    /*TextView proof;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,23 @@ public class retrieve_data extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
         Query query = rootRef.collection("Cars");
 
         Log.d("QUERY", query+"");
               //  .orderBy("TimeStamp", Query.Direction.ASCENDING);
 
+       /* proof.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(retrieve_data.this,Proof.class);
+                startActivity(intent);
+
+            }
+        });
+*/
 
 
         FirestoreRecyclerOptions<CarDetails> response = new FirestoreRecyclerOptions.Builder<CarDetails>()
