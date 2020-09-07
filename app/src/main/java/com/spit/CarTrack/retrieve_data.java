@@ -64,11 +64,13 @@ public class retrieve_data extends AppCompatActivity {
                 .setQuery(query, CarDetails.class)
                 .build();
 
-
+        Log.d("RESPONSE FROM FIRESTORE",response.toString());
         adapter = new FirestoreRecyclerAdapter<CarDetails, Car_Viewholer>(response) {
 
             @Override
             protected void onBindViewHolder(@NonNull Car_Viewholer holder, int position, @NonNull final CarDetails car) {
+                final String documentId = getSnapshots().getSnapshot(position).getId();
+                Log.d("docId", documentId);
                 holder.address.setText(car.getAddresss());
                 holder.timestamp.setText(getDate(car.getTimeStamp()+""));
                 holder.uploader.setText(car.getUploader()+"");
@@ -99,7 +101,9 @@ public class retrieve_data extends AppCompatActivity {
                 holder.proof.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(getApplicationContext(), Proof.class));
+                                Intent i= new Intent(getApplicationContext(), Proof.class);
+                                i.putExtra("docId",documentId);
+                                startActivity(i);
                     }
                 });
 

@@ -54,7 +54,7 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
     public Async_proof_uploader(Context ctx, Uri dataBaos, ProgressBar progressBar) {
         this.ctx=ctx;
         uploadfunc= new Click();
-        pref = ctx.getSharedPreferences("proof_shared_pref", 0); // 0 - for private mode
+        pref = ctx.getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
         pgdialog=new ProgressDialog(ctx);
 

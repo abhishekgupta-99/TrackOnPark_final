@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -21,8 +22,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.vincent.filepicker.Constant;
 import com.vincent.filepicker.activity.ImagePickActivity;
 import com.vincent.filepicker.filter.entity.ImageFile;
@@ -33,6 +37,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -68,6 +75,9 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
     public String zoneImageURI = null;
 
     File mPhotoFile;
+    String current_docId;
+    String comment;
+    EditText comment_p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +96,15 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         file_attach = findViewById(R.id.image);
         upload_btn = findViewById(R.id.upload_proof);
         progressBar = findViewById(R.id.progressBar);
+        comment_p= findViewById(R.id.comment_proof);
         upload_btn.setOnClickListener(this);
         upload_btn.setClickable(false);
         upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
         camera_click_picture.setOnClickListener(this);
 
 
+        Intent i= getIntent();
+        current_docId= i.getStringExtra("docId");
     }
 
     public void attach_file(View view) {
@@ -113,7 +126,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
             // Log.d("Picture urlll",picture_url+"");
             upload_btn.setClickable(false);
             upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
-
+           // update_proof_details_firestore();
 
         }
 
@@ -150,6 +163,30 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void update_proof_details_firestore() {
+
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        String user_email=pref.getString("email", null); // getting String
+        comment=comment_p.getText().toString().trim();
+        String last_upload_url=pref.getString("last_proof_upload_url", null);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, Object> proof_details = new HashMap<>();
+        proof_details.put("proof_status",true);
+        proof_details.put("comment",comment);
+        proof_details.put("proof_uploader",user_email);
+        proof_details.put("car_towing_proof_image_url",last_upload_url);
+
+        DocumentReference document= db.collection("Cars").document(current_docId);
+        document.update(proof_details).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(Proof.this, "Vehicle towed proof updated successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
     private File createImageFile () throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
@@ -168,7 +205,14 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         if(photoURI!=null) {
             Log.d("Enter","entered");
             progress = new Async_proof_uploader(this, photoURI, progressBar);
-            progress.execute();
+            try {
+                progress.execute().get();
+                update_proof_details_firestore();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         else
             Toast.makeText(this, "Cannot get Image File Path", Toast.LENGTH_SHORT).show();

@@ -481,6 +481,9 @@ public class Click extends AppCompatActivity implements View.OnClickListener {
         car_details.put("Image_Url",last_upload_url);
         car_details.put("label",lab);
         car_details.put("proof_status",false);
+        car_details.put("comment","");
+        car_details.put("proof_uploader","");
+        car_details.put("car_towing_proof_image_url","");
 
 
 //        DocumentReference document =
