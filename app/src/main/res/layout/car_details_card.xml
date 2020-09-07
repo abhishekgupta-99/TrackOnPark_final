@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="7dp"
@@ -131,6 +132,25 @@
             android:paddingStart="30dp"
             android:layout_below="@+id/uploader"
             android:paddingLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/proof"
+            android:textSize="15sp"
+            android:text="Proof"
+            android:textColor="#AD167E9E"
+            android:layout_toEndOf="@+id/cartype_card"
+            android:layout_toRightOf="@+id/cartype_card"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textStyle="normal"
+            android:layout_marginTop="5dp"
+            android:paddingStart="30dp"
+            android:layout_below="@+id/accuracy"
+            android:paddingLeft="20dp"
+            tools:ignore="UnknownId" />
+
 
 
 

@@ -1,12 +1,17 @@
 package com.spit.CarTrack;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
 public class CarDetails {
 
     private String Uploader;
     private String Addresss;
     private String accuracy;
     private Long TimeStamp;
-private double Latitude;
+    private double Latitude;
+   /* TextView TermsAndConditions;*/
 
     public String getLabel() {
         return label;
@@ -89,4 +94,7 @@ private double Latitude;
     public void setLongitude(double longitude) {
         Longitude = longitude;
     }
-}
+
+
+
+    }

@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spit.CarTrack">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/appicon"
@@ -9,25 +18,24 @@
         android:roundIcon="@mipmap/appicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.spit.CarTrack.retrieve_data"></activity>
-        <activity android:name="com.spit.CarTrack.ZoneView" />
-        <activity android:name="com.spit.CarTrack.ZoneInfo" />
-        <activity android:name="com.spit.CarTrack.Click" />
-        <activity android:name="com.spit.CarTrack.MapsActivity" />
-        <activity android:name="com.spit.CarTrack.PrivacyPolicy" />
-        <activity android:name="com.spit.CarTrack.Terms" />
-        <activity android:name="com.spit.CarTrack.Contact" />
-        <activity android:name="com.spit.CarTrack.Help" />
-        <activity android:name="com.spit.CarTrack.About" />
-        <activity android:name="com.spit.CarTrack.HomeFragment" />
-        <activity android:name="com.spit.CarTrack.Settings_Fragment" />
-        <activity android:name="com.spit.CarTrack.EntriesFragment" />
-        <activity android:name="com.spit.CarTrack.MainActivity1" />
-
-        <activity android:name="com.spit.CarTrack.Privacy" />
-
+        <activity android:name=".Proof"></activity>
+        <activity android:name=".retrieve_data" />
+        <activity android:name=".ZoneView" />
+        <activity android:name=".ZoneInfo" />
+        <activity android:name=".Click" />
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".PrivacyPolicy" />
+        <activity android:name=".Terms" />
+        <activity android:name=".Contact" />
+        <activity android:name=".Help" />
+        <activity android:name=".About" />
+        <activity android:name=".HomeFragment" />
+        <activity android:name=".Settings_Fragment" />
+        <activity android:name=".EntriesFragment" />
+        <activity android:name=".MainActivity1" />
+        <activity android:name=".Privacy" />
         <activity
-            android:name="com.spit.CarTrack.Flash"
+            android:name=".Flash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,16 +43,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.spit.CarTrack.Register" />
-
-        <activity android:name="com.spit.CarTrack.LoginTOP" />
-        <activity android:name="com.spit.CarTrack.MainActivity">
+        <activity android:name=".Register" />
+        <activity android:name=".LoginTOP" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
@@ -59,14 +67,5 @@ android:name=".ui.login.Login"
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-
-    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

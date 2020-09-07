@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
     //Permission Manager Object
     PermissionManager permissionManager;
 
-    Button btn_login;
+    /*Button btn_login;
     Button btn_register;
-    TextView TermsAndConditions;
+    TextView TermsAndConditions;*/
 
 
     @Override
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
 
+/*
 
         btn_login=(Button) findViewById(R.id.login);
         btn_register=(Button) findViewById(R.id.signup);
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(in);
             }
         });
+*/
 
 
         googlesignin();

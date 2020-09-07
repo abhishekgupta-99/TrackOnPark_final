@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02" />
+        app:layout_constraintGuide_percent="0.05" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeft"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.30642954" />
+            app:layout_constraintGuide_percent="0.52" />
 
 
         <ImageView
@@ -88,8 +88,8 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline31"
-            app:layout_constraintEnd_toStartOf="@+id/guideline23"
-            app:layout_constraintStart_toStartOf="@+id/guideline18"
+            app:layout_constraintEnd_toStartOf="@+id/guideline34"
+            app:layout_constraintStart_toStartOf="@+id/guideline33"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/test" />
 
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.64" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline33"
@@ -118,11 +118,11 @@
             android:id="@+id/KA"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:autoSizeTextType="uniform"
             android:layout_marginTop="8dp"
-            android:textSize="11sp"
-            android:text="Knowledge Associate"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
+            android:text="Knowledge Associate"
+            android:textSize="11sp"
             app:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toTopOf="@+id/guideline32"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
@@ -136,9 +136,9 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:autoSizeTextType="uniform"
+            android:gravity="center"
             android:text="Bhartiya Vidya Bhavan’s "
             android:textColor="#000000"
-            android:gravity="center"
             app:fontFamily="sans-serif"
             app:layout_constraintBottom_toTopOf="@+id/guideline32"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
@@ -151,10 +151,10 @@
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:autoSizeTextType="uniform"
+            android:gravity="center"
             android:text="Sardar Patel Institute of Technology "
             android:textColor="#000000"
             app:fontFamily="sans-serif-black"
-            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/guideline32"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintHorizontal_bias="0.653"
@@ -162,40 +162,7 @@
             app:layout_constraintTop_toBottomOf="@+id/BVB"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/Andh"
-            android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:autoSizeTextType="uniform"
-            android:layout_marginBottom="16dp"
-            android:text="(S.P.I.T), Andheri."
-            android:textColor="#000000"
-            app:fontFamily="sans-serif"
-            android:gravity="center"
-            app:autoSizeMinTextSize="16sp"
-            app:autoSizeMaxTextSize="100sp"
-            app:autoSizeStepGranularity="1sp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline32"
-            app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toBottomOf="@+id/SPIT"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.7104137" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.61" />
-
-        <Button
+        <!-- <Button
             android:id="@+id/login"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -230,16 +197,9 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline37"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toTopOf="@+id/guideline35" />
+            app:layout_constraintTop_toTopOf="@+id/guideline35" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline38"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.78" />
-
-        <TextView
+        <!--        <TextView
             android:id="@+id/LOne"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -254,34 +214,37 @@
             app:layout_constraintHorizontal_bias="0.496"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
             app:layout_constraintTop_toTopOf="@+id/guideline37"
-            app:layout_constraintVertical_bias="0.166" />
+            app:layout_constraintVertical_bias="0.166" />-->
+
 
         <TextView
-            android:id="@+id/LTwo"
+            android:id="@+id/Andh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Terms of Services and Privacy Policy"
-            android:textColor="#4B67F9"
-            android:textSize="10sp"
-            android:gravity="center"
+            android:layout_height="18dp"
+            android:layout_marginBottom="16dp"
             android:autoSizeTextType="uniform"
+            android:gravity="center"
+            android:text="(S.P.I.T), Andheri."
+            android:textColor="#000000"
+            app:autoSizeMaxTextSize="100sp"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeStepGranularity="1sp"
             app:fontFamily="sans-serif"
-            app:layout_constraintBottom_toTopOf="@+id/guideline38"
+            app:layout_constraintBottom_toTopOf="@+id/guideline32"
             app:layout_constraintEnd_toStartOf="@+id/guideline34"
-            app:layout_constraintHorizontal_bias="0.487"
+            app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="@+id/guideline33"
-            app:layout_constraintTop_toBottomOf="@+id/LOne"
+            app:layout_constraintTop_toBottomOf="@+id/SPIT"
             app:layout_constraintVertical_bias="0.0" />
-
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.83" />
+            app:layout_constraintGuide_percent="0.77" />
 
-
+        <!--
         <TextView
             android:id="@+id/LThree"
             android:layout_width="match_parent"
@@ -297,14 +260,14 @@
             app:layout_constraintHorizontal_bias="0.424"
             app:layout_constraintStart_toStartOf="@+id/guideline18"
             app:layout_constraintTop_toTopOf="@+id/guideline38"
-            app:layout_constraintVertical_bias="0.242" />
+            app:layout_constraintVertical_bias="0.242" />-->
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.95" />
+            app:layout_constraintGuide_percent="0.89" />
 
         <ImageButton
             android:id="@+id/sign_in_button"
@@ -327,6 +290,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.019151846" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
