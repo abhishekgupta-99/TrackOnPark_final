@@ -25,6 +25,8 @@ import org.w3c.dom.Text;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static java.lang.Byte.valueOf;
+
 public class retrieve_data extends AppCompatActivity {
 
     private FirestoreRecyclerAdapter<CarDetails, Car_Viewholer> adapter;
@@ -72,7 +74,7 @@ public class retrieve_data extends AppCompatActivity {
                 holder.timestamp.setText(getDate(car.getTimeStamp()+""));
                 holder.uploader.setText(car.getUploader()+"");
                 holder.Label.setText(car.getLabel()+"");
-                holder.accuracy.setText(car.getAccuracy()+"");
+                holder.accuracy.setText(Float.parseFloat(car.getAccuracy())*100+"%"+"");
                 Picasso.get().load(car.getImage_Url()+"").into(holder.car_picture);
                 Log.d("URLLLL",car.getImage_Url()+"");
              //   Toast.makeText(retrieve_data.this, car.getAccuracy()+"", Toast.LENGTH_SHORT).show();
