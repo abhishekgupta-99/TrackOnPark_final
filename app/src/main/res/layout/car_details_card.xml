@@ -54,7 +54,7 @@
             android:textSize="15sp"
             android:text="Date"
             android:drawableStart="@drawable/ic_access_time_black_24dp"
-            android:textColor="#48000000"
+            android:textColor="#80000000"
             android:textStyle="italic"
             android:drawablePadding="10dp"
             android:layout_toEndOf="@+id/car_pic"
@@ -91,7 +91,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/proof_card"
             android:layout_toRightOf="@+id/upload_proof"
-            android:src="@drawable/navigate" />
+            android:src="@drawable/googlemaps" />
 
         <ImageView
             android:id="@+id/whatsapp"
@@ -114,7 +114,7 @@
             android:layout_marginTop="5dp"
             android:drawablePadding="10dp"
             card_view:cardCornerRadius="5dp"
-            card_view:cardBackgroundColor="@color/lightblue"
+            card_view:cardBackgroundColor="#1DBFFF"
             card_view:contentPadding="8dp"
             android:layout_below="@+id/uploader"
             android:layout_marginLeft="10dp"
@@ -158,7 +158,7 @@
             android:textSize="15sp"
             android:text="Upload Proof"
             android:drawableStart="@drawable/ic_baseline_cloud_upload_24"
-            android:textColor="#F80E335A"
+            android:textColor="#F80C4A8A"
             android:textStyle="bold|normal"
             android:drawablePadding="10dp"
             android:layout_toEndOf="@+id/car_pic"
