@@ -119,7 +119,7 @@ public class retrieve_data extends AppCompatActivity {
                         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                         whatsappIntent.setType("text/plain");
                         whatsappIntent.setPackage("com.whatsapp");
-                        String msg = build_the_whatsapp_msg_string(car.getAddresss(),getDate(car.getTimeStamp()+""),car.getUploader()+"",car.getLabel()+"",car.getAccuracy()+"",car.getImage_Url()+"");
+                        String msg = build_the_whatsapp_msg_string(car.getAddresss(),getDate(car.getTimeStamp()+""),car.getUploader()+"",car.getLabel()+"",Float.parseFloat(car.getAccuracy())*100+"%"+"",car.getImage_Url()+"");
                         whatsappIntent.putExtra(Intent.EXTRA_TEXT, msg);
                         //whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
                       //  whatsappIntent.setType("image/jpeg");
