@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -124,13 +126,16 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         if (view == upload_btn) {
             //evaluate_model();
             execute_asyncc();
+           // createDialog();
             //  Uri picture_url=progress.getFirebase_storage_picture();
             // Log.d("Picture urlll",picture_url+"");
-            upload_btn.setClickable(false);
-            upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
+           upload_btn.setClickable(false);
+           upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
            // update_proof_details_firestore();
 
         }
+
+
 
 
         if (view == camera_click_picture) {
@@ -164,6 +169,38 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         }
 
     }
+
+    /*private void createDialog() {
+        AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
+        alertDlg.setMessage("Are you sure you want to upload this proof?");
+        alertDlg.setCancelable(false);
+
+        alertDlg.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                //evaluate_model();
+               // execute_asyncc();
+               // createDialog();
+                //  Uri picture_url=progress.getFirebase_storage_picture();
+                // Log.d("Picture urlll",picture_url+"");
+                //upload_btn.setClickable(false);
+                //upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
+                // update_proof_details_firestore();
+
+
+            }
+        });
+
+        alertDlg.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        alertDlg.create().show();
+
+    }*/
 
     public void update_proof_details_firestore(final Context ctx, Uri proof_uri) {
 

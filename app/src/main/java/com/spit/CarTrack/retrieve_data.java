@@ -1,5 +1,6 @@
 package com.spit.CarTrack;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -25,6 +27,7 @@ import org.w3c.dom.Text;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static java.lang.Boolean.FALSE;
 import static java.lang.Byte.valueOf;
 
 public class retrieve_data extends AppCompatActivity {
@@ -66,6 +69,7 @@ public class retrieve_data extends AppCompatActivity {
         Log.d("RESPONSE FROM FIRESTORE",response.toString());
         adapter = new FirestoreRecyclerAdapter<CarDetails, Car_Viewholer>(response) {
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             protected void onBindViewHolder(@NonNull Car_Viewholer holder, int position, @NonNull final CarDetails car) {
                 final String documentId = getSnapshots().getSnapshot(position).getId();
@@ -79,10 +83,17 @@ public class retrieve_data extends AppCompatActivity {
                 Log.d("URLLLL",car.getImage_Url()+"");
              //   Toast.makeText(retrieve_data.this, car.getAccuracy()+"", Toast.LENGTH_SHORT).show();
 
-//                if(car.isProof_status())
-//                {
-//                    holder.card.setCardBackgroundColor(Color.CYAN);
-//                }
+                if(car.isProof_status())
+             {
+                //holder.card.setCardBackgroundColor(Color.GREEN);
+                 holder.card.setCardBackgroundColor(0xFFE8E8E8);
+                 //holder.proof.setEnabled(false);
+                 holder.proof.setText("Re-Upload Proof");
+                 //holder.navigate_gmaps.setClickable(FALSE);
+               //  holder.navigate_gmaps.setEnabled(false);
+
+             }
+
                 holder.navigate_gmaps.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -119,7 +130,7 @@ public class retrieve_data extends AppCompatActivity {
                         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                         whatsappIntent.setType("text/plain");
                         whatsappIntent.setPackage("com.whatsapp");
-                        String msg = build_the_whatsapp_msg_string(car.getAddresss(),getDate(car.getTimeStamp()+""),car.getUploader()+"",car.getLabel()+"",Math.round(Float.parseFloat(car.getAccuracy())*100)+"%",car.getImage_Url()+"");
+                        String msg = build_the_whatsapp_msg_string(car.getAddresss(),getDate(car.getTimeStamp()+""),car.getUploader()+"",car.getLabel()+"",Math.round(Float.parseFloat(car.getAccuracy())*100)+"%",car.getImage_Url()+"", car.isProof_status());
                         whatsappIntent.putExtra(Intent.EXTRA_TEXT, msg);
                         //whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
                       //  whatsappIntent.setType("image/jpeg");
@@ -149,9 +160,15 @@ public class retrieve_data extends AppCompatActivity {
 
     }
 
-    private String build_the_whatsapp_msg_string(String addresss, String date, String uploader, String label, String accuracy, String image_url) {
+    private String build_the_whatsapp_msg_string(String addresss, String date, String uploader, String label, String accuracy, String image_url, Boolean proof_status) {
 
-        String msg = "*TRACK ON PARK*: _BMC_"+"\n"+"The abandoned vehicle details are as follows: "+"\n"+"*Towing Status*: "+"Pending"+"\n"+"Uploaded on: "+date+"\n"+"Address: " +addresss+"\n"+"Uploader: "+uploader+"\n"+"Label: "+label+"\n"+"Accuracy: "+accuracy+"\n"+"Vehicle Photo: "+image_url;
+        String status;
+        if(proof_status)
+            status="Vehicle Towed";
+        else
+                status= "pending";
+
+        String msg = "*TRACK ON PARK*: _BMC_"+"\n"+"The abandoned vehicle details are as follows: "+"\n"+"*Towing Status*: "+status+"\n"+"Uploaded on: "+date+"\n"+"Address: " +addresss+"\n"+"Uploader: "+uploader+"\n"+"Label: "+label+"\n"+"Accuracy: "+accuracy+"\n"+"Vehicle Photo: "+image_url;
         return  msg;
     }
 
