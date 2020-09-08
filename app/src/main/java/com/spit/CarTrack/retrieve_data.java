@@ -2,10 +2,12 @@ package com.spit.CarTrack;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -79,6 +81,11 @@ public class retrieve_data extends AppCompatActivity {
                 Picasso.get().load(car.getImage_Url()+"").into(holder.car_picture);
                 Log.d("URLLLL",car.getImage_Url()+"");
              //   Toast.makeText(retrieve_data.this, car.getAccuracy()+"", Toast.LENGTH_SHORT).show();
+
+//                if(car.isProof_status())
+//                {
+//                    holder.card.setCardBackgroundColor(Color.CYAN);
+//                }
                 holder.navigate_gmaps.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -142,12 +149,15 @@ public class retrieve_data extends AppCompatActivity {
        // public TextView accuracy;
         public TextView Label;
         public  TextView proof;
+        public CardView card;
 
     //    public TextView zoneInitials;
 
         Car_Viewholer(View itemView) {
             super(itemView);
             view = itemView;
+
+            card= itemView.findViewById(R.id.vehicle_cardview);
 
             address = itemView.findViewById(R.id.address);
             uploader = itemView.findViewById(R.id.uploader);
