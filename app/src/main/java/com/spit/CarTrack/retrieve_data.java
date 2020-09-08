@@ -77,7 +77,7 @@ public class retrieve_data extends AppCompatActivity {
                 holder.Label.setText(car.getLabel()+"");
                 holder.accuracy.setText(car.getAccuracy()+"");
                 Picasso.get().load(car.getImage_Url()+"").into(holder.car_picture);
-                Log.d("URLLLLLLLLLLLL",car.getImage_Url()+"");
+                Log.d("URLLLL",car.getImage_Url()+"");
              //   Toast.makeText(retrieve_data.this, car.getAccuracy()+"", Toast.LENGTH_SHORT).show();
                 holder.navigate_gmaps.setOnClickListener(new View.OnClickListener() {
                     @Override
