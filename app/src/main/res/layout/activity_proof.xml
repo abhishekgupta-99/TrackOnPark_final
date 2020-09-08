@@ -39,7 +39,7 @@
         android:id="@+id/bmcImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.05"
+        android:alpha="0.03"
         android:src="@drawable/bmc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,8 +94,10 @@
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toTopOf="@+id/guideline48"
             app:layout_constraintEnd_toStartOf="@+id/guideline47"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline36"
-            app:layout_constraintTop_toTopOf="@+id/guideline51" />
+            app:layout_constraintTop_toTopOf="@+id/guideline51"
+            app:layout_constraintVertical_bias="1.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline49"
@@ -150,7 +152,7 @@
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginBottom="32dp"
-            android:src="@drawable/ic_camera_alt_black_24dp"
+            android:src="@drawable/ic_baseline_camera_24"
             app:layout_constraintBottom_toTopOf="@+id/guideline52"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline50"
@@ -241,16 +243,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.79" />
+            app:layout_constraintGuide_percent="0.81" />
 
         <EditText
             android:id="@+id/comment_proof"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="start|top"
             android:hint="Type your comment"
+            android:textStyle="italic"
             android:inputType="textMultiLine"
+            android:paddingLeft="20dp"
             app:layout_constraintBottom_toTopOf="@+id/upload_proof"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.19"
