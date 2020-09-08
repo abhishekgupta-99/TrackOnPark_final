@@ -1,11 +1,9 @@
 package com.spit.CarTrack;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -18,15 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
-
 import org.w3c.dom.Text;
-
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -114,6 +109,29 @@ public class retrieve_data extends AppCompatActivity {
                     }
                 });
 
+                holder.whatsapp_img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                       // Uri imgUri = Uri.parse(pictureFile.getAbsolutePath());
+                        Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                        whatsappIntent.setType("text/plain");
+                        whatsappIntent.setPackage("com.whatsapp");
+                        String msg = build_the_whatsapp_msg_string(car.getAddresss(),getDate(car.getTimeStamp()+""),car.getUploader()+"",car.getLabel()+"",car.getAccuracy()+"",car.getImage_Url()+"");
+                        whatsappIntent.putExtra(Intent.EXTRA_TEXT, msg);
+                        //whatsappIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
+                      //  whatsappIntent.setType("image/jpeg");
+                        whatsappIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                        try {
+                            startActivity(whatsappIntent);
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            //ToastHelper.MakeShortText("Whatsapp have not been installed.");
+                        }
+
+                    }
+                });
+
 
             }
 
@@ -127,6 +145,12 @@ public class retrieve_data extends AppCompatActivity {
         };
         recyclerView.setAdapter(adapter);
 
+    }
+
+    private String build_the_whatsapp_msg_string(String addresss, String date, String uploader, String label, String accuracy, String image_url) {
+
+        String msg = "*TRACK ON PARK*: _BMC_"+"\n"+"The abandoned vehicle details are as follows: "+"\n"+"*Towing Status*: "+"Pending"+"\n"+"Uploaded on: "+date+"\n"+"Address: " +addresss+"\n"+"Uploader: "+uploader+"\n"+"Label: "+label+"\n"+"Accuracy: "+accuracy+"\n"+"Vehicle Photo: "+image_url;
+        return  msg;
     }
 
     private String getDate(String s) {
@@ -150,6 +174,7 @@ public class retrieve_data extends AppCompatActivity {
         public TextView Label;
         public  TextView proof;
         public CardView card;
+        public ImageView whatsapp_img;
 
     //    public TextView zoneInitials;
 
@@ -167,6 +192,7 @@ public class retrieve_data extends AppCompatActivity {
             accuracy=itemView.findViewById(R.id.accuracy);
             Label=itemView.findViewById(R.id.carType);
             proof =itemView.findViewById(R.id.proof_card);
+            whatsapp_img =itemView.findViewById(R.id.whatsapp);
 
 
         //    accuracy = itemView.findViewById(R.id.textView_site_id);

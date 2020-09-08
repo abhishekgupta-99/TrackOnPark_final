@@ -91,7 +91,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/proof_card"
             android:layout_toRightOf="@+id/upload_proof"
-            android:src="@drawable/googlemaps" />
+            android:src="@drawable/navigate" />
 
         <ImageView
             android:id="@+id/whatsapp"
