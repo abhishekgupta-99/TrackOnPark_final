@@ -122,6 +122,7 @@ public class Asyncc extends AsyncTask<String, String, String> {
 
                         String[] label_conf= new String[2];
                         Log.d("storage url", "onSuccess: uri= "+ uri.toString());
+
                        // firebase_storage_picture=uri+"";
                         editor.putString("last_upload_url", uri+"");
                         editor.commit(); // commit changes

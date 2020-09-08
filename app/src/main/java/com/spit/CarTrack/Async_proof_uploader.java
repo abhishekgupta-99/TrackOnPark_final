@@ -25,7 +25,6 @@ import java.util.Date;
 
 public class Async_proof_uploader extends AsyncTask<String, String, String> {
 
-    Click uploadfunc;
     Context ctx;
     ProgressDialog dialog;
     ProgressBar progressBar;
@@ -34,6 +33,7 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
     int currentprogress=0;
     Bitmap image;
     Uri tempuri;
+    Uri proof_uri;
     String firebase_storage_picture;
     private ProgressDialog pgdialog;
 
@@ -53,7 +53,7 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
 
     public Async_proof_uploader(Context ctx, Uri dataBaos, ProgressBar progressBar) {
         this.ctx=ctx;
-        uploadfunc= new Click();
+        //uploadfunc= new Click();
         pref = ctx.getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
         pgdialog=new ProgressDialog(ctx);
@@ -105,11 +105,6 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
             public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
                 System.out.println("Upload is paused");
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(ctx, "Please Connect To Internet", Toast.LENGTH_SHORT).show();
-            }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -117,9 +112,13 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
                     @Override
                     public void onSuccess(Uri uri) {
 
+                        Toast.makeText(ctx, "ENTERED SUCCCESSS", Toast.LENGTH_LONG).show();
+
                        // String[] label_conf= new String[2];
-                        Log.d("proof storage url", "onSuccess: uri= "+ uri.toString());
+                        Log.d("proof storage url", "onSuccess: uri= "+ "trial");
                        // firebase_storage_picture=uri+"";
+                        proof_uri=uri;
+                        Log.d("Proof urii storage",proof_uri.toString());
                         editor.putString("last_proof_upload_url", uri+"");
                         editor.commit(); // commit changes
 
@@ -129,6 +128,9 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
                             Toast.makeText(ctx, "Successfully Uploaded", Toast.LENGTH_SHORT).show();
 
                         }
+
+                        Proof p=new Proof();
+                        p.update_proof_details_firestore(ctx,proof_uri);
 
 
                            // uploadfunc.evaluate_model(tempuri,ctx,image_labeler,label_conf);
@@ -140,6 +142,11 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
 
                     }
                 });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(ctx, "Please Connect To Internet", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -162,19 +169,14 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
     protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
 
-
-
-
       //  firebase_storage_picture=aVoid;
 
         progressBar.setVisibility(View.GONE);
+       // Log.d("Proof urii", proof_uri.toString());
 
         if (pgdialog.isShowing()) {
             pgdialog.dismiss();
         }
-
-
-
     }
 
 
@@ -183,9 +185,4 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
 
     }
 
-
-
-
-
 }
-

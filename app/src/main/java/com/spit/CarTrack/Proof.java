@@ -1,9 +1,12 @@
 package com.spit.CarTrack;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -76,8 +79,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     File mPhotoFile;
     String current_docId;
-    String comment;
-    EditText comment_p;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         file_attach = findViewById(R.id.image);
         upload_btn = findViewById(R.id.upload_proof);
         progressBar = findViewById(R.id.progressBar);
-        comment_p= findViewById(R.id.comment_proof);
+        //comment_p= findViewById(R.id.comment_proof);
         upload_btn.setOnClickListener(this);
         upload_btn.setClickable(false);
         upload_btn.setBackgroundColor(getResources().getColor(R.color.grey_100));
@@ -163,24 +165,33 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    private void update_proof_details_firestore() {
+    public void update_proof_details_firestore(final Context ctx, Uri proof_uri) {
 
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0);
+        SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
+        String comment;
+        EditText comment_p;
+        Intent i= ((Activity) ctx).getIntent();
+        String current_docId= i.getStringExtra("docId");
+
+        comment_p= ((Activity) ctx).findViewById(R.id.comment_proof);
         comment=comment_p.getText().toString().trim();
-        String last_upload_url=pref.getString("last_proof_upload_url", null);
+        String last_upload_url = pref.getString("last_proof_upload_url", null);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> proof_details = new HashMap<>();
         proof_details.put("proof_status",true);
         proof_details.put("comment",comment);
         proof_details.put("proof_uploader",user_email);
-        proof_details.put("car_towing_proof_image_url",last_upload_url);
+
+        Log.d("Proof urii update func",proof_uri.toString());
+
+        proof_details.put("car_towing_proof_image_url",proof_uri.toString());
 
         DocumentReference document= db.collection("Cars").document(current_docId);
         document.update(proof_details).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(Proof.this, "Vehicle towed proof updated successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ctx, "Vehicle towed proof updated successfully", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -207,7 +218,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
             progress = new Async_proof_uploader(this, photoURI, progressBar);
             try {
                 progress.execute().get();
-                update_proof_details_firestore();
+               // update_proof_details_firestore();
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {
