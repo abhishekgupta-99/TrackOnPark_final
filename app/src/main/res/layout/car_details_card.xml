@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="7dp"
-    card_view:cardElevation="5dp"
+    card_view:cardElevation="6dp"
     card_view:cardUseCompatPadding="true">
 
 
@@ -34,6 +34,7 @@
             android:id="@+id/address"
             android:text="Address"
             android:textSize="15sp"
+            android:justificationMode="inter_word"
             android:textColor="#AB000000"
             android:layout_gravity="center_vertical|end"
             android:drawableStart="@drawable/ic_location_on_black_24dp"
@@ -82,13 +83,14 @@
 
         <ImageView
             android:id="@+id/navigate_gps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_margin="2dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="fitXY"
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/proof_card"
             android:layout_toRightOf="@+id/upload_proof"
-            android:src="@drawable/ic_near_me_black_24dp" />
+            android:src="@drawable/googlemaps" />
 
         <ImageView
             android:id="@+id/whatsapp"
