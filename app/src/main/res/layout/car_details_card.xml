@@ -139,7 +139,7 @@
             android:id="@+id/accuracy"
             android:textSize="15sp"
             android:text="accuracy"
-            android:textColor="#AD000000"
+            android:textColor="#832121"
             android:layout_toEndOf="@+id/cartype_card"
             android:layout_toRightOf="@+id/cartype_card"
             android:layout_marginLeft="10dp"
