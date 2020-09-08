@@ -86,6 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
             android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/proof_card"
             android:layout_toRightOf="@+id/upload_proof"
             android:src="@drawable/ic_near_me_black_24dp" />
 
@@ -93,7 +94,7 @@
             android:id="@+id/whatsapp"
             android:layout_alignBottom="@+id/proof_card"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
+            android:layout_marginRight="35dp"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:scaleType="fitXY"
