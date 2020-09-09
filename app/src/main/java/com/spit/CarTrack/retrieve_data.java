@@ -85,12 +85,11 @@ public class retrieve_data extends AppCompatActivity {
 
                 if(car.isProof_status())
              {
-                //holder.card.setCardBackgroundColor(Color.GREEN);
                  holder.card.setCardBackgroundColor(0xFFE8E8E8);
-                 //holder.proof.setEnabled(false);
                  holder.proof.setText("Re-Upload Proof");
-                 //holder.navigate_gmaps.setClickable(FALSE);
-               //  holder.navigate_gmaps.setEnabled(false);
+
+               //  holder.card.setOnClickListener();
+
 
              }
 
@@ -168,7 +167,7 @@ public class retrieve_data extends AppCompatActivity {
         else
                 status= "pending";
 
-        String msg = "*TRACK ON PARK*: _BMC_"+"\n"+"The abandoned vehicle details are as follows: "+"\n"+"*Towing Status*: "+status+"\n"+"Uploaded on: "+date+"\n"+"Address: " +addresss+"\n"+"Uploader: "+uploader+"\n"+"Label: "+label+"\n"+"Accuracy: "+accuracy+"\n"+"Vehicle Photo: "+image_url;
+        String msg = "*TRACK ON PARK*: _BMC_"+"\n"+"The registeres vehicle details are as follows: "+"\n"+"*Towing Status*: "+status+"\n"+"Uploaded on: "+date+"\n"+"Address: " +addresss+"\n"+"Uploader: "+uploader+"\n"+"Label: "+label+"\n"+"Accuracy: "+accuracy+"\n"+"Vehicle Photo: "+image_url;
         return  msg;
     }
 
