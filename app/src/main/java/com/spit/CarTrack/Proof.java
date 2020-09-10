@@ -57,7 +57,11 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
     Button upload_btn;
     EditText et1, et2;
     Spinner sp;
+    Intent i;
+    String add="";
+    String label="";
     Uri photoURI;
+    Context ctx;
     Async_proof_uploader progress;
     Uri tempUri;
     private Uri uri;
@@ -87,6 +91,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proof);
+        ctx=this;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -107,8 +112,10 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         camera_click_picture.setOnClickListener(this);
 
 
-        Intent i= getIntent();
+         i= getIntent();
         current_docId= i.getStringExtra("docId");
+         add  = i.getStringExtra("add");
+         label = i.getStringExtra("label");
     }
 
     public void attach_file(View view) {
@@ -127,7 +134,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
             //evaluate_model();
 
 
-          //  execute_asyncc();
+           //execute_asyncc();
 
 
             alert_box_confirm();
@@ -209,7 +216,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     public void update_proof_details_firestore(final Context ctx, Uri proof_uri) {
 
-        alert_box_confirm();
+        //alert_box_confirm();
 
         SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
@@ -243,9 +250,6 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void alert_box_confirm() {
-        Intent i= getIntent();
-        String add  = i.getStringExtra("add");
-        String label = i.getStringExtra("label");
 
         String msg ="";
 
@@ -263,7 +267,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(Proof.this,"Selected Option: No",Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(Proof.this,"Selected Option: No",Toast.LENGTH_SHORT).show();
                         dialog.cancel();
                     }
                 });
@@ -283,7 +287,7 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     public void execute_asyncc() {
 
-        Log.d("PHOTO KA URL",Uri.fromFile(new File(photoURI+""))+"");
+       // Log.d("PHOTO KA URL",Uri.fromFile(new File(photoURI+""))+"");
 
         //Uri.fromFile(new File(photoURI+""));
 

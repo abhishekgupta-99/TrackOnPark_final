@@ -112,15 +112,15 @@ public class Async_proof_uploader extends AsyncTask<String, String, String> {
                     @Override
                     public void onSuccess(Uri uri) {
 
-                        Toast.makeText(ctx, "ENTERED SUCCCESSS", Toast.LENGTH_LONG).show();
+                      //  Toast.makeText(ctx, "ENTERED SUCCCESSS", Toast.LENGTH_LONG).show();
 
                        // String[] label_conf= new String[2];
                         Log.d("proof storage url", "onSuccess: uri= "+ "trial");
                        // firebase_storage_picture=uri+"";
                         proof_uri=uri;
                         Log.d("Proof urii storage",proof_uri.toString());
-                        editor.putString("last_proof_upload_url", uri+"");
-                        editor.commit(); // commit changes
+                       // editor.putString("last_proof_upload_url", uri+"");
+                        //editor.commit(); // commit changes
 
                         if(currentprogress==100)
                         {
