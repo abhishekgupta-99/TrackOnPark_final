@@ -256,13 +256,15 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(Proof.this,"Selected Option: YES",Toast.LENGTH_SHORT).show();
+                        execute_asyncc();
+                       // Toast.makeText(Proof.this,"Selected Option: YES",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(Proof.this,"Selected Option: No",Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
                     }
                 });
         //Creating dialog box
