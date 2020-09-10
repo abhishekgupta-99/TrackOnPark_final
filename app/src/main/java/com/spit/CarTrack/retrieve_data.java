@@ -117,6 +117,8 @@ public class retrieve_data extends AppCompatActivity {
                     public void onClick(View view) {
                                 Intent i= new Intent(getApplicationContext(), Proof.class);
                                 i.putExtra("docId",documentId);
+                                i.putExtra("add",car.getAddresss().toString());
+                                i.putExtra("label",car.getLabel().toString());
                                 startActivity(i);
                     }
                 });

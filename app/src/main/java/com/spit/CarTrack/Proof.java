@@ -125,7 +125,12 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
         if (view == upload_btn) {
             //evaluate_model();
-            execute_asyncc();
+
+
+          //  execute_asyncc();
+
+
+            alert_box_confirm();
            // createDialog();
             //  Uri picture_url=progress.getFirebase_storage_picture();
             // Log.d("Picture urlll",picture_url+"");
@@ -204,6 +209,8 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
 
     public void update_proof_details_firestore(final Context ctx, Uri proof_uri) {
 
+        alert_box_confirm();
+
         SharedPreferences pref = ctx.getSharedPreferences("MyPref", 0);
         String user_email=pref.getString("email", null); // getting String
         String comment;
@@ -233,6 +240,34 @@ public class Proof extends AppCompatActivity implements View.OnClickListener {
         });
 
 
+    }
+
+    private void alert_box_confirm() {
+        Intent i= getIntent();
+        String add  = i.getStringExtra("add");
+        String label = i.getStringExtra("label");
+
+        String msg ="";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Proof.this);
+        builder.setTitle("Proof Upload Alert")
+                .setMessage("Are you sure, you want to update proof of this "+label+" vehicle at "+add+" ?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Proof.this,"Selected Option: YES",Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(Proof.this,"Selected Option: No",Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog dialog  = builder.create();
+        dialog.show();
     }
 
     private File createImageFile () throws IOException {
