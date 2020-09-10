@@ -45,7 +45,7 @@ public class retrieve_data extends AppCompatActivity {
 
 
         FirebaseFirestore rootRef = FirebaseFirestore.getInstance();
-        Query query = rootRef.collection("Cars");
+        Query query = rootRef.collection("Cars").whereEqualTo("proof_status",false);
 
         Log.d("QUERY", query+"");
               //  .orderBy("TimeStamp", Query.Direction.ASCENDING);
